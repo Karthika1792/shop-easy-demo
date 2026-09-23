@@ -27,7 +27,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 15px;
     }
 
     .logo {
@@ -42,7 +42,7 @@
 
     .search {
       flex: 1;
-      max-width: 550px;
+      max-width: 500px;
     }
 
     .search input {
@@ -54,15 +54,19 @@
       outline: none;
     }
 
-    .cart-button {
+    .header-button {
       background: #22c55e;
       color: white;
       border: none;
-      padding: 12px 18px;
+      padding: 12px 16px;
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
       white-space: nowrap;
+    }
+
+    .header-button:hover {
+      background: #16a34a;
     }
 
     /* Navigation */
@@ -221,6 +225,23 @@
       background: #16a34a;
     }
 
+    /* Wishlist Button */
+    .wishlist-button {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px;
+      border: 1px solid #22c55e;
+      background: white;
+      color: #16a34a;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .wishlist-button:hover {
+      background: #f0fdf4;
+    }
+
     /* Features */
     .features {
       margin-top: 50px;
@@ -250,8 +271,9 @@
       color: #666;
     }
 
-    /* Cart panel */
-    .cart-panel {
+    /* Cart Panel */
+    .cart-panel,
+    .wishlist-panel {
       position: fixed;
       right: -400px;
       top: 0;
@@ -265,24 +287,28 @@
       overflow-y: auto;
     }
 
-    .cart-panel.open {
+    .cart-panel.open,
+    .wishlist-panel.open {
       right: 0;
     }
 
-    .cart-header {
+    .cart-header,
+    .wishlist-header {
       display: flex;
       justify-content: space-between;
       margin-bottom: 25px;
     }
 
-    .close-cart {
+    .close-cart,
+    .close-wishlist {
       border: none;
       background: none;
       font-size: 24px;
       cursor: pointer;
     }
 
-    .cart-item {
+    .cart-item,
+    .wishlist-item {
       padding: 15px 0;
       border-bottom: 1px solid #ddd;
     }
@@ -302,6 +328,16 @@
       color: white;
       border-radius: 8px;
       font-weight: bold;
+      cursor: pointer;
+    }
+
+    .remove-button {
+      margin-top: 8px;
+      padding: 7px 12px;
+      border: none;
+      background: #ef4444;
+      color: white;
+      border-radius: 5px;
       cursor: pointer;
     }
 
@@ -366,7 +402,8 @@
         grid-template-columns: 1fr;
       }
 
-      .cart-panel {
+      .cart-panel,
+      .wishlist-panel {
         width: 100%;
         right: -100%;
       }
@@ -378,6 +415,7 @@
 
   <!-- Header -->
   <header>
+
     <div class="logo">
       Shop<span>Easy</span>
     </div>
@@ -391,9 +429,14 @@
       >
     </div>
 
-    <button class="cart-button" onclick="openCart()">
+    <button class="header-button" onclick="openWishlist()">
+      ❤️ Wishlist (<span id="wishlistCount">0</span>)
+    </button>
+
+    <button class="header-button" onclick="openCart()">
       🛒 Cart (<span id="cartCount">0</span>)
     </button>
+
   </header>
 
   <!-- Navigation -->
@@ -407,8 +450,11 @@
 
   <!-- Hero -->
   <section class="hero">
+
     <div class="hero-content">
+
       <h1>Everything You Need, All in One Place</h1>
+
       <p>
         Discover great products at great prices.
         Shop smarter with ShopEasy.
@@ -417,126 +463,283 @@
       <button class="shop-button" onclick="scrollToProducts()">
         Shop Now
       </button>
+
     </div>
 
     <div class="hero-icon">
       🛍️
     </div>
+
   </section>
 
   <!-- Products -->
   <main>
 
     <div class="section-title">
+
       <h2>Featured Products</h2>
+
       <span class="product-count" id="productCount">
         8 Products
       </span>
+
     </div>
 
     <div class="products" id="products">
 
+      <!-- Product 1 -->
       <div class="product-card" data-category="Electronics">
+
         <div class="product-image">📱</div>
+
         <div class="product-info">
+
           <div class="category">Electronics</div>
-          <h3 class="product-name">Smartphone Pro</h3>
+
+          <h3 class="product-name">
+            Smartphone Pro
+          </h3>
+
           <div class="rating">★★★★★</div>
+
           <div class="price">₹49,999</div>
-          <button class="add-cart" onclick="addToCart('Smartphone Pro', 49999)">
+
+          <button
+            class="add-cart"
+            onclick="addToCart('Smartphone Pro', 49999)">
             Add to Cart
           </button>
+
+          <button
+            class="wishlist-button"
+            onclick="addToWishlist('Smartphone Pro', 49999)">
+            ♡ Add to Wishlist
+          </button>
+
         </div>
       </div>
 
+      <!-- Product 2 -->
       <div class="product-card" data-category="Electronics">
+
         <div class="product-image">💻</div>
+
         <div class="product-info">
+
           <div class="category">Electronics</div>
-          <h3 class="product-name">Laptop Air</h3>
+
+          <h3 class="product-name">
+            Laptop Air
+          </h3>
+
           <div class="rating">★★★★★</div>
+
           <div class="price">₹74,999</div>
-          <button class="add-cart" onclick="addToCart('Laptop Air', 74999)">
+
+          <button
+            class="add-cart"
+            onclick="addToCart('Laptop Air', 74999)">
             Add to Cart
           </button>
+
+          <button
+            class="wishlist-button"
+            onclick="addToWishlist('Laptop Air', 74999)">
+            ♡ Add to Wishlist
+          </button>
+
         </div>
       </div>
 
+      <!-- Product 3 -->
       <div class="product-card" data-category="Fashion">
+
         <div class="product-image">👟</div>
+
         <div class="product-info">
+
           <div class="category">Fashion</div>
-          <h3 class="product-name">Running Shoes</h3>
+
+          <h3 class="product-name">
+            Running Shoes
+          </h3>
+
           <div class="rating">★★★★☆</div>
+
           <div class="price">₹3,499</div>
-          <button class="add-cart" onclick="addToCart('Running Shoes', 3499)">
+
+          <button
+            class="add-cart"
+            onclick="addToCart('Running Shoes', 3499)">
             Add to Cart
           </button>
+
+          <button
+            class="wishlist-button"
+            onclick="addToWishlist('Running Shoes', 3499)">
+            ♡ Add to Wishlist
+          </button>
+
         </div>
       </div>
 
+      <!-- Product 4 -->
       <div class="product-card" data-category="Fashion">
+
         <div class="product-image">👜</div>
+
         <div class="product-info">
+
           <div class="category">Fashion</div>
-          <h3 class="product-name">Classic Handbag</h3>
+
+          <h3 class="product-name">
+            Classic Handbag
+          </h3>
+
           <div class="rating">★★★★★</div>
+
           <div class="price">₹2,999</div>
-          <button class="add-cart" onclick="addToCart('Classic Handbag', 2999)">
+
+          <button
+            class="add-cart"
+            onclick="addToCart('Classic Handbag', 2999)">
             Add to Cart
           </button>
+
+          <button
+            class="wishlist-button"
+            onclick="addToWishlist('Classic Handbag', 2999)">
+            ♡ Add to Wishlist
+          </button>
+
         </div>
       </div>
 
+      <!-- Product 5 -->
       <div class="product-card" data-category="Home">
+
         <div class="product-image">☕</div>
+
         <div class="product-info">
+
           <div class="category">Home</div>
-          <h3 class="product-name">Coffee Maker</h3>
+
+          <h3 class="product-name">
+            Coffee Maker
+          </h3>
+
           <div class="rating">★★★★☆</div>
+
           <div class="price">₹4,999</div>
-          <button class="add-cart" onclick="addToCart('Coffee Maker', 4999)">
+
+          <button
+            class="add-cart"
+            onclick="addToCart('Coffee Maker', 4999)">
             Add to Cart
           </button>
+
+          <button
+            class="wishlist-button"
+            onclick="addToWishlist('Coffee Maker', 4999)">
+            ♡ Add to Wishlist
+          </button>
+
         </div>
       </div>
 
+      <!-- Product 6 -->
       <div class="product-card" data-category="Home">
+
         <div class="product-image">🛋️</div>
+
         <div class="product-info">
+
           <div class="category">Home</div>
-          <h3 class="product-name">Modern Sofa</h3>
+
+          <h3 class="product-name">
+            Modern Sofa
+          </h3>
+
           <div class="rating">★★★★★</div>
+
           <div class="price">₹29,999</div>
-          <button class="add-cart" onclick="addToCart('Modern Sofa', 29999)">
+
+          <button
+            class="add-cart"
+            onclick="addToCart('Modern Sofa', 29999)">
             Add to Cart
           </button>
+
+          <button
+            class="wishlist-button"
+            onclick="addToWishlist('Modern Sofa', 29999)">
+            ♡ Add to Wishlist
+          </button>
+
         </div>
       </div>
 
+      <!-- Product 7 -->
       <div class="product-card" data-category="Electronics">
+
         <div class="product-image">🎧</div>
+
         <div class="product-info">
+
           <div class="category">Electronics</div>
-          <h3 class="product-name">Wireless Headphones</h3>
+
+          <h3 class="product-name">
+            Wireless Headphones
+          </h3>
+
           <div class="rating">★★★★☆</div>
+
           <div class="price">₹5,999</div>
-          <button class="add-cart" onclick="addToCart('Wireless Headphones', 5999)">
+
+          <button
+            class="add-cart"
+            onclick="addToCart('Wireless Headphones', 5999)">
             Add to Cart
           </button>
+
+          <button
+            class="wishlist-button"
+            onclick="addToWishlist('Wireless Headphones', 5999)">
+            ♡ Add to Wishlist
+          </button>
+
         </div>
       </div>
 
+      <!-- Product 8 -->
       <div class="product-card" data-category="Fashion">
+
         <div class="product-image">⌚</div>
+
         <div class="product-info">
+
           <div class="category">Fashion</div>
-          <h3 class="product-name">Smart Watch</h3>
+
+          <h3 class="product-name">
+            Smart Watch
+          </h3>
+
           <div class="rating">★★★★★</div>
+
           <div class="price">₹7,999</div>
-          <button class="add-cart" onclick="addToCart('Smart Watch', 7999)">
+
+          <button
+            class="add-cart"
+            onclick="addToCart('Smart Watch', 7999)">
             Add to Cart
           </button>
+
+          <button
+            class="wishlist-button"
+            onclick="addToWishlist('Smart Watch', 7999)">
+            ♡ Add to Wishlist
+          </button>
+
         </div>
       </div>
 
@@ -548,31 +751,44 @@
       <div class="feature">
         <div class="feature-icon">🚚</div>
         <h3>Fast Delivery</h3>
-        <p>Quick and reliable delivery to your doorstep.</p>
+        <p>
+          Quick and reliable delivery to your doorstep.
+        </p>
       </div>
 
       <div class="feature">
         <div class="feature-icon">🔒</div>
         <h3>Secure Shopping</h3>
-        <p>Your shopping experience is safe and secure.</p>
+        <p>
+          Your shopping experience is safe and secure.
+        </p>
       </div>
 
       <div class="feature">
         <div class="feature-icon">↩️</div>
         <h3>Easy Returns</h3>
-        <p>Simple and hassle-free return process.</p>
+        <p>
+          Simple and hassle-free return process.
+        </p>
       </div>
 
     </div>
 
   </main>
 
-  <!-- Cart -->
+  <!-- Cart Panel -->
   <div class="cart-panel" id="cartPanel">
 
     <div class="cart-header">
+
       <h2>Your Cart</h2>
-      <button class="close-cart" onclick="closeCart()">×</button>
+
+      <button
+        class="close-cart"
+        onclick="closeCart()">
+        ×
+      </button>
+
     </div>
 
     <div id="cartItems">
@@ -583,22 +799,162 @@
       Total: ₹<span id="cartTotal">0</span>
     </div>
 
-    <button class="checkout" onclick="checkout()">
+    <button
+      class="checkout"
+      onclick="checkout()">
       Proceed to Checkout
     </button>
 
   </div>
 
+  <!-- Wishlist Panel -->
+  <div class="wishlist-panel" id="wishlistPanel">
+
+    <div class="wishlist-header">
+
+      <h2>❤️ Wishlist</h2>
+
+      <button
+        class="close-wishlist"
+        onclick="closeWishlist()">
+        ×
+      </button>
+
+    </div>
+
+    <div id="wishlistItems">
+      <p>Your wishlist is empty.</p>
+    </div>
+
+  </div>
+
   <!-- Footer -->
   <footer>
+
     <h3>ShopEasy</h3>
-    <p>Your simple online shopping destination.</p>
-    <p>© 2026 ShopEasy Demo</p>
+
+    <p>
+      Your simple online shopping destination.
+    </p>
+
+    <p>
+      © 2026 ShopEasy Demo
+    </p>
+
   </footer>
 
   <script>
 
     let cart = [];
+    let wishlist = [];
+
+    /* =========================
+       WISHLIST
+    ========================= */
+
+    function addToWishlist(name, price) {
+
+      const alreadyAdded = wishlist.some(
+        item => item.name === name
+      );
+
+      if (alreadyAdded) {
+
+        alert(
+          name + " is already in your wishlist!"
+        );
+
+        return;
+      }
+
+      wishlist.push({
+        name: name,
+        price: price
+      });
+
+      updateWishlist();
+
+      alert(
+        name + " added to wishlist!"
+      );
+    }
+
+
+    function updateWishlist() {
+
+      document.getElementById(
+        "wishlistCount"
+      ).textContent = wishlist.length;
+
+      const wishlistItems =
+        document.getElementById(
+          "wishlistItems"
+        );
+
+      if (wishlist.length === 0) {
+
+        wishlistItems.innerHTML =
+          "<p>Your wishlist is empty.</p>";
+
+        return;
+      }
+
+      wishlistItems.innerHTML =
+        wishlist.map((item, index) => `
+
+          <div class="wishlist-item">
+
+            <strong>
+              ${item.name}
+            </strong>
+
+            <br>
+
+            ₹${item.price.toLocaleString("en-IN")}
+
+            <br>
+
+            <button
+              class="remove-button"
+              onclick="removeFromWishlist(${index})">
+
+              Remove
+
+            </button>
+
+          </div>
+
+        `).join("");
+    }
+
+
+    function removeFromWishlist(index) {
+
+      wishlist.splice(index, 1);
+
+      updateWishlist();
+    }
+
+
+    function openWishlist() {
+
+      document
+        .getElementById("wishlistPanel")
+        .classList.add("open");
+    }
+
+
+    function closeWishlist() {
+
+      document
+        .getElementById("wishlistPanel")
+        .classList.remove("open");
+    }
+
+
+    /* =========================
+       CART
+    ========================= */
 
     function addToCart(name, price) {
 
@@ -609,37 +965,71 @@
 
       updateCart();
 
-      alert(name + " added to cart!");
+      alert(
+        name + " added to cart!"
+      );
     }
+
 
     function updateCart() {
 
-      document.getElementById("cartCount").textContent = cart.length;
+      document.getElementById(
+        "cartCount"
+      ).textContent = cart.length;
 
-      const cartItems = document.getElementById("cartItems");
+      const cartItems =
+        document.getElementById(
+          "cartItems"
+        );
 
       if (cart.length === 0) {
-        cartItems.innerHTML = "<p>Your cart is empty.</p>";
+
+        cartItems.innerHTML =
+          "<p>Your cart is empty.</p>";
+
       } else {
 
-        cartItems.innerHTML = cart.map((item, index) => `
-          <div class="cart-item">
-            <strong>${item.name}</strong>
-            <br>
-            ₹${item.price.toLocaleString("en-IN")}
-            <br><br>
-            <button onclick="removeFromCart(${index})">
-              Remove
-            </button>
-          </div>
-        `).join("");
+        cartItems.innerHTML =
+          cart.map((item, index) => `
+
+            <div class="cart-item">
+
+              <strong>
+                ${item.name}
+              </strong>
+
+              <br>
+
+              ₹${item.price.toLocaleString("en-IN")}
+
+              <br><br>
+
+              <button
+                class="remove-button"
+                onclick="removeFromCart(${index})">
+
+                Remove
+
+              </button>
+
+            </div>
+
+          `).join("");
       }
 
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const total =
+        cart.reduce(
+          (sum, item) =>
+            sum + item.price,
+          0
+        );
 
-      document.getElementById("cartTotal").textContent =
+      document.getElementById(
+        "cartTotal"
+      ).textContent =
         total.toLocaleString("en-IN");
     }
+
 
     function removeFromCart(index) {
 
@@ -648,12 +1038,14 @@
       updateCart();
     }
 
+
     function openCart() {
 
       document
         .getElementById("cartPanel")
         .classList.add("open");
     }
+
 
     function closeCart() {
 
@@ -662,18 +1054,29 @@
         .classList.remove("open");
     }
 
+
     function checkout() {
 
       if (cart.length === 0) {
-        alert("Your cart is empty.");
+
+        alert(
+          "Your cart is empty."
+        );
+
         return;
       }
 
       alert(
         "Checkout demo successful!\n\n" +
-        "This is a demonstration site. No real payment was processed."
+        "This is a demonstration site. " +
+        "No real payment was processed."
       );
     }
+
+
+    /* =========================
+       NAVIGATION
+    ========================= */
 
     function scrollToProducts() {
 
@@ -684,10 +1087,13 @@
         });
     }
 
+
     function filterProducts(category) {
 
       const products =
-        document.querySelectorAll(".product-card");
+        document.querySelectorAll(
+          ".product-card"
+        );
 
       let visible = 0;
 
@@ -698,19 +1104,29 @@
           product.dataset.category === category
         ) {
 
-          product.style.display = "block";
+          product.style.display =
+            "block";
+
           visible++;
 
         } else {
 
-          product.style.display = "none";
+          product.style.display =
+            "none";
         }
 
       });
 
-      document.getElementById("productCount").textContent =
+      document.getElementById(
+        "productCount"
+      ).textContent =
         visible + " Products";
     }
+
+
+    /* =========================
+       SEARCH
+    ========================= */
 
     function searchProducts() {
 
@@ -721,7 +1137,9 @@
           .toLowerCase();
 
       const products =
-        document.querySelectorAll(".product-card");
+        document.querySelectorAll(
+          ".product-card"
+        );
 
       let visible = 0;
 
@@ -733,19 +1151,26 @@
             .textContent
             .toLowerCase();
 
-        if (name.includes(search)) {
+        if (
+          name.includes(search)
+        ) {
 
-          product.style.display = "block";
+          product.style.display =
+            "block";
+
           visible++;
 
         } else {
 
-          product.style.display = "none";
+          product.style.display =
+            "none";
         }
 
       });
 
-      document.getElementById("productCount").textContent =
+      document.getElementById(
+        "productCount"
+      ).textContent =
         visible + " Products";
     }
 
