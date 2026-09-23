@@ -8,6 +8,7 @@
     "start": "wrangler dev"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "wrangler": "^4.136.3"
   }
 }
